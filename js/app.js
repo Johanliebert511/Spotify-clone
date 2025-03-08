@@ -107,7 +107,7 @@ async function main(){
     await getSongs("songs/Brightmood");
     playMusic(songs[0], true)
     await displayAlbums()
-   
+    let i = 0
     play.addEventListener("click", ()=> {
         if(currSong.paused){
             currSong.play();
@@ -132,7 +132,7 @@ async function main(){
     })
 
     next.addEventListener("click", () => {
-        currSong.pause();
+        //currSong.pause();
        //console.log("next clicked")
        let index = songs.indexOf(currSong.src.split("/").slice(-1)[0])
        if((index + 1) < songs.length)
@@ -165,6 +165,13 @@ async function main(){
             document.querySelector(".range").getElementsByTagName("input")[0].value = .10
         }
     })
-
+    
+    currSong.addEventListener("ended", () => {
+        let index = songs.indexOf(currSong.src.split("/").slice(-1)[0])
+        if((index + 1) < songs.length)
+            playMusic(songs[index + 1])
+        else 
+            playMusic(songs[0])
+    })
     }
 main()
